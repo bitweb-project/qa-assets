@@ -45,9 +45,9 @@ const APT_PACKAGES: &[&str] = &[
 const QA_ASSETS_PATH: &str = "qa-assets";
 /// The name of the directory in qa-assets that holds the committed fuzz corpora.
 const FUZZ_CORPORA_DIR: &str = "fuzz_corpora";
-/// Path to the cloned bitcoin repository.
-const BITCOIN_PATH: &str = "bitcoin";
-/// Bitcoin build directory.
+/// Path to the cloned bitweb repository.
+const BITCOIN_PATH: &str = "bitweb";
+/// Bitweb build directory.
 const BITCOIN_BUILD_DIR: &str = "build_fuzz";
 
 const LLVM_VERSION: &str = "18";
@@ -74,7 +74,7 @@ fn parse_cli_args() -> Result<Vec<String>, AppError> {
             if value.is_empty() {
                 return Err(help("empty value for --extra-ref"));
             }
-            git_ls_remote("https://github.com/bitcoin/bitcoin", &value)?;
+            git_ls_remote("https://github.com/bitweb-project/bitweb", &value)?;
             git_refs.push(value.to_string());
         } else {
             Err(help(&format!("Too many args, or unknown named arg: {arg}")))?;
@@ -239,7 +239,7 @@ fn install_aflpp() -> AppResult {
 
 fn clone_and_configure_repositories() -> AppResult {
     git_clone(
-        "https://github.com/bitcoin-core/qa-assets.git",
+        "https://github.com/bitweb-project/qa-assets.git",
         &["--depth=1"],
         QA_ASSETS_PATH,
     )?;
@@ -250,7 +250,7 @@ fn clone_and_configure_repositories() -> AppResult {
     )?;
     git_config(QA_ASSETS_PATH, "user.email", "noreply@noreply.noreply")?;
     git_clone(
-        "https://github.com/bitcoin/bitcoin.git",
+        "https://github.com/bitweb-project/bitweb.git",
         &["--depth=1"],
         BITCOIN_PATH,
     )?;

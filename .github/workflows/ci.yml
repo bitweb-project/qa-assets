@@ -28,8 +28,8 @@ jobs:
         include:
           - name: 'fuzz'
             runner: 'ubuntu-latest'
-            # To catch potential timeouts early, this task must replicate the config from https://github.com/bitcoin/bitcoin/blob/master/.github/workflows/ci.yml
-            timeout-minutes: 240
+            # To catch potential timeouts early, this task must replicate the config from https://github.com/bitweb-project/bitweb/blob/master/.github/workflows/ci.yml
+            timeout-minutes: 360
             file-env: './ci/test/00_setup_env_native_fuzz.sh'
           - name: 'fuzz (msan)'
             runner: 'ubuntu-latest'
@@ -41,10 +41,10 @@ jobs:
             file-env: './ci/test/00_setup_env_native_fuzz_with_valgrind.sh'
 
     steps:
-      - name: Checkout Bitcoin Core
+      - name: Checkout Bitweb Core
         uses: actions/checkout@v5
         with:
-          repository: bitcoin/bitcoin
+          repository: bitweb-project/bitweb
           fetch-depth: 1
 
       - name: Checkout
@@ -54,17 +54,17 @@ jobs:
           fetch-depth: 1
 
       - name: Clear unnecessary files on bloated GHA VM
-        uses: bitcoin/bitcoin/.github/actions/clear-files@master
+        uses: bitweb-project/bitweb/.github/actions/clear-files@master
 
       - name: Configure environment
-        uses: bitcoin/bitcoin/.github/actions/configure-environment@master
+        uses: bitweb-project/bitweb/.github/actions/configure-environment@master
 
       - name: Restore caches
         id: restore-cache
-        uses: bitcoin/bitcoin/.github/actions/cache/restore@master
+        uses: bitweb-project/bitweb/.github/actions/cache/restore@master
 
       - name: Configure Docker
-        uses: bitcoin/bitcoin/.github/actions/configure-docker@master
+        uses: bitweb-project/bitweb/.github/actions/configure-docker@master
 
       - name: CI script
         run: |
@@ -73,7 +73,7 @@ jobs:
           ./ci/test_run_all.sh
 
       - name: Save caches
-        uses: bitcoin/bitcoin/.github/actions/cache/save@master
+        uses: bitweb-project/bitweb/.github/actions/cache/save@master
 
   lint:
     name: lint
