@@ -61,7 +61,7 @@ jobs:
 
       - name: Restore caches
         id: restore-cache
-        uses: bitweb-project/bitweb/.github/actions/restore-caches@master
+        uses: bitweb-project/bitweb/.github/actions/cache/restore@master
 
       - name: Configure Docker
         uses: bitweb-project/bitweb/.github/actions/configure-docker@master
@@ -73,7 +73,7 @@ jobs:
           ./ci/test_run_all.sh
 
       - name: Save caches
-        uses: bitweb-project/bitweb/.github/actions/save-caches@master
+        uses: bitweb-project/bitweb/.github/actions/cache/save@master
 
   lint:
     name: lint
